@@ -1,25 +1,19 @@
 import React, { useState } from 'react'
 
 const SignUp = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const emailValue = (event) => {
-        setEmail(event.target.value)
-    }
-    function passwordValue(event) {
-        setPassword(event.target.value)
-    }
-    function firstNameValue(event) {
-     setFirstName(event.target.value)
-    }
-    function lastNameValue(event) {
-        setLastName(event.target.value)
-       }
+    const [signUp, setSignUp] = useState({
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+    })
+    function handleChange(e) {
+        const {name, value} = e.target
+        setSignUp({...signUp, [name]: value})
+      }
     function handleSubmit(event) {
         event.preventDefault()
-        console.log(firstName, lastName)
+        console.log(signUp)
     }
     return (
         <div className='container'>
@@ -27,13 +21,13 @@ const SignUp = () => {
                 <h5 className="grey-text text-darken-3">Sign Up</h5>
                 <div className="input-field">
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" onChange={emailValue}/>
+                    <input name="email" value={signUp.email} type="email" id="email" onChange={handleChange}/>
                     <label htmlFor="password">Password</label>
-                    <input type="password" id="password" onChange={passwordValue}/>
+                    <input name="password" value={signUp.password} type="password" id="password" onChange={handleChange}/>
                     <label htmlFor="password">Password</label>
-                    <input type="text" id="firstName" onChange={firstNameValue}/>
+                    <input name="firstName" value={signUp.firstName} type="text" id="firstName" onChange={handleChange}/>
                     <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="lastName" onChange={lastNameValue}/>
+                    <input name="lastName" value={signUp.lastName} type="text" id="lastName" onChange={handleChange}/>
                     <label htmlFor="lastName">Last Name</label>
                     <button className="btn pink-ligthen-1 z-depth-0">Sign Up</button>
                 </div>

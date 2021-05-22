@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 
 const SignIn = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const emailValue = (event) => {
-        setEmail(event.target.value)
-    }
-    function passwordValue(event) {
-        setPassword(event.target.value)
-    }
+    const [signIn, setSignIn] = useState({
+        email: '',
+        password: '',
+    })
+    function handleChange(e) {
+        const {name, value} = e.target
+        setSignIn({...signIn, [name]: value})
+      }
     function handleSubmit(event) {
         event.preventDefault()
-        console.log('email', email, 'password', password)
+        console.log('email', signIn.email, 'password', signIn.password)
     }
     return (
         <div className='container'>
@@ -19,9 +19,9 @@ const SignIn = () => {
                 <h5 className="grey-text text-darken-3">Sign in</h5>
                 <div className="input-field">
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" onChange={emailValue}/>
+                    <input name="email" value={signIn.email} type="email" onChange={handleChange}/>
                     <label htmlFor="password">Password</label>
-                    <input type="password" id="password" onChange={passwordValue}/>
+                    <input name="password" value={signIn.password} type="password" id="password" onChange={handleChange}/>
                     <button className="btn pink-ligthen-1 z-depth-0">Login</button>
                 </div>
             </form>
