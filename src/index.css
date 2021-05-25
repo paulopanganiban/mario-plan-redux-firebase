@@ -1,8 +1,9 @@
+
 html {
   min-height: 100%;
 }
 body {
-  background: url('/img/mario-bg.png') no-repeat;
+  /* background: url('/img/mario-bg.png') no-repeat; */
   background-size: 100%;
   background-position: bottom;
   background-color: #95e8f3;
@@ -15,5 +16,5 @@ form {
 }
 form button, form h5 {
   margin: 20px 0;
-  
+
 }

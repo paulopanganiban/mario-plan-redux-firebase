@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// map state to props
 import { useSelector, useDispatch } from 'react-redux';
 import {
   decrement,
