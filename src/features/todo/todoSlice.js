@@ -44,8 +44,20 @@ export const slice = createSlice({
             if (index !== -1) {
                 state.splice(index, 1)
             }
+        },
+        calculateAverageTime: (state, action) => {
+            const { payload } = action
+            const averageTime = 0
+            state.push({
+                id: todoId,
+                designCreated: payload.designCreated,
+                duration: payload.duration,
+                averageTime: averageTime
+            })
+            todoId++
         }
     }
 })
-export const { create, edit, remove, toggleComplete } = slice.actions
+export const { create, edit, remove, toggleComplete,
+    calculateAverageTime } = slice.actions
 export default slice.reducer;

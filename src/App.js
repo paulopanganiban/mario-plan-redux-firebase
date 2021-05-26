@@ -17,7 +17,7 @@ function App() {
     <div className="App">
       <Router>
         <Navbar />
-        <Todo/>
+        {/* <Todo/> */}
         <Switch>
           <Route exact path='/'>
             <Dashboard />
