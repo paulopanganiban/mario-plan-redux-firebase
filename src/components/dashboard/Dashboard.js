@@ -5,13 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 // 1st import useState, useDispatch, useSelector
 // import the actions from todoSlice
 const Dashboard = () => {
+    
     // take a piece of the state
     // no need mag mapstate to props and connect ()()
     // sheeeeeesh
     const projects = useSelector(state => state.projects)
-    useEffect(() => {
-       console.log(projects)
-      }, [projects]);
+    console.log(projects + 'im from dashboard')
     return (
       <div className="dashboard container">
           <div className="row">
