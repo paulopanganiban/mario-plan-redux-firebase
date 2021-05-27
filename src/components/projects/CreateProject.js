@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
+// 1st import useState, useDispatch, useSelector
+// import the actions from todoSlice
+import { useDispatch, useSelector } from 'react-redux'
+import { create } from '../../features/project/projectSlice'
 
 const CreateProject = () => {
+    const dispatch = useDispatch()
+    // get state
+    const projects = useSelector(state => state.projects)
     const [project, setProject] = useState({
         title: '',
         content: '',
@@ -11,6 +18,7 @@ const CreateProject = () => {
     }
     function handleSubmit(event) {
         event.preventDefault()
+        dispatch(create(project))
         console.log(project)
     }
     return (
