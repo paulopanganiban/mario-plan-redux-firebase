@@ -13,6 +13,7 @@ import Todo from './features/todo/Todo';
 import 'moment-timezone'
 
 function App() {
+
   return (
     <div className="App">
       <Router>
@@ -32,7 +33,7 @@ function App() {
             <CreateProject />
           </Route>
           <Route path='/project/:id'>
-          <ProjectDetails/>
+            <ProjectDetails />
           </Route>
         </Switch>
       </Router>

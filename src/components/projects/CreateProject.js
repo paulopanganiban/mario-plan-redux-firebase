@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 // 1st import useState, useDispatch, useSelector
 // import the actions from todoSlice
 import { useDispatch, useSelector } from 'react-redux'
-import { create } from '../../features/project/projectSlice'
+import { create, createProjectAsync } from '../../features/project/projectSlice'
 
 const CreateProject = () => {
     const dispatch = useDispatch()
@@ -18,7 +18,7 @@ const CreateProject = () => {
     }
     function handleSubmit(event) {
         event.preventDefault()
-        dispatch(create(project))
+        dispatch(createProjectAsync(project))
         console.log(project)
     }
     return (
