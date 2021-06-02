@@ -1,26 +1,27 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { auth, provider } from '../../firebase'
-import { selectUserEmail, selectUserName, setActiveUser, setUserLogout } from '../../features/auth/authSlice'
+import firebase from 'firebase'
+import { selectUserEmail, selectUserName, setActiveUser, setUserLogout, signInUserAsync } from '../../features/auth/authSlice'
+import { toast } from 'react-toastify'
 
 const SignIn = () => {
-    auth.onAuthStateChanged((user)=> {
-        if (user) {
-
-        } else {
-            console.log('No user is signed in')
-        }
-    })
-    const dispatch = useDispatch()
-    // select a reducer
-   
-    const userName = useSelector(state => state.auth.userName)
-    // const userEmail = useSelector(selectUserEmail)
-
     const [signIn, setSignIn] = useState({
         email: '',
         password: '',
     })
+
+    const dispatch = useDispatch()
+    // const userName = useSelector(state => state.auth.userName)
+    const authState = useSelector(state => state.auth)
+    function handleSignInWithEmailPassword() {
+        console.log(signIn)
+        dispatch(signInUserAsync({ signIn }))
+        if(authState.error === true) {
+            toast.configure()
+            toast.warn('Sign in failed. Wrong credentials')
+        }
+    }
     function handleSignIn() {
         auth.signInWithPopup(provider).catch((error => {
             alert(error.message)
@@ -33,9 +34,8 @@ const SignIn = () => {
         })
     }
     function handleSignOut() {
-        auth.signOut().then(() => {
-            dispatch(setUserLogout)
-        }).catch(error => console.log(error))
+        auth.signOut()
+        dispatch(setUserLogout)
     }
     function handleChange(e) {
         const { name, value } = e.target
@@ -43,7 +43,17 @@ const SignIn = () => {
     }
     function handleSubmit(event) {
         event.preventDefault()
-        console.log('email', signIn.email, 'password', signIn.password)
+        handleSignInWithEmailPassword()
+        // auth.signInWithEmailAndPassword(signIn.userName, signIn.password)
+        // .then((userCredential) => {
+        //   // Signed in
+        //   var user = userCredential.user;
+        //   // ...
+        // })
+        // .catch((error) => {
+        //   var errorCode = error.code;
+        //   var errorMessage = error.message;
+        // });
     }
     return (
         <div className='container'>
@@ -60,11 +70,11 @@ const SignIn = () => {
                 <button className="btn pink-ligthen-1 z-depth-0">Login</button>
             </form>
             <div className="section">
-                {userName ? (<button onClick={handleSignOut} className="btn pink-ligthen-1 z-depth-0">Sign out</button>)
-                : (<button onClick={handleSignIn} className="btn pink-ligthen-1 z-depth-0">Sign in with Google</button>)}
-                
+                {authState.isSignedIn ? (<button onClick={handleSignOut} className="btn pink-ligthen-1 z-depth-0">Sign out</button>)
+                    : (<button onClick={handleSignIn} className="btn pink-ligthen-1 z-depth-0">Sign in with Google</button>)}
             </div>
         </div>
+
     )
 }
 

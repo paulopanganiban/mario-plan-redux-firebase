@@ -11,6 +11,8 @@ import SignUp from './components/auth/SignUp';
 import CreateProject from './components/projects/CreateProject';
 import Todo from './features/todo/Todo';
 import 'moment-timezone'
+import 'react-toastify/dist/ReactToastify.css'
+
 
 function App() {
 

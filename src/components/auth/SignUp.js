@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { auth } from '../../firebase';
 
 const SignUp = () => {
     const [signUp, setSignUp] = useState({
@@ -7,6 +8,18 @@ const SignUp = () => {
         firstName: '',
         lastName: '',
     })
+    auth().createUserWithEmailAndPassword(signUp.email, signUp.password)
+        .then((userCredential) => {
+            // Signed in 
+            var user = userCredential.user;
+            // ...
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ..
+        });
+
     function handleChange(e) {
         const { name, value } = e.target
         setSignUp({ ...signUp, [name]: value })
