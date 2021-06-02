@@ -1,67 +1,51 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { auth, db } from '../../firebase';
 import firebase from 'firebase'
+import { isValidElement } from 'react';
 
-const initState = [
-    { id: '1', title: 'help me find peach', content: 'blah blah blah' },
-    { id: '2', title: 'collect all the stars', content: 'blah blah blah' },
-    { id: '3', title: 'egg hunt with yoshi', content: 'blah blah blah' },
-]
+const initState = {
+    project: [],
+    status: 'idle',
+}
+
 
 export const createProjectAsync = createAsyncThunk(
     // name ata to ng action. ATA
     'project/create',
-    async (payload) => {
-        const response = await db.collection('projects').add({
-            title: payload.title,
-            content: payload.content,
-            authorFirstName: 'Olo',
-            authorLastName: 'Pangs',
-            authorId: 12345,
+    async ({project, authState}) => {
+        db.collection('projects').add({
+            title: project.title,
+            content: project.content,
+            authorFirstName: authState.userName,
+            authorEmail: authState.userEmail,
+            authorId: authState.userId,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).catch((error) => {
-            console.error('Error writing new message to Firebase Database', error)
+            console.error('Error writing new project to Firebase Database', error)
         })
-        return response.data
-        // call something here database
-        // const response = await fetchCount(amount);
-        // The value we return becomes the `fulfilled` action payload
-        // return response.data;
+        return project
     }
 );
 export const slice = createSlice({
     name: 'projects',
     initialState: initState,
     reducers: {
-        create: (state, action) => {
-            // action.payload
+        getProjects: (state, action) => {
             const { payload } = action
-            db.collection('projects').add({
-                title: payload.title,
-                content: payload.content,
-                authorFirstName: 'Olo',
-                authorLastName: 'Pangs',
-                authorId: 12345,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            })
-                .catch((error) => {
-                    console.error('Error writing new message to Firebase Database', error)
-                })
-
-            console.log('created project' + payload)
+            state.project = payload
         }
     },
     extraReducers: (builder) => {
         builder
-          .addCase(createProjectAsync.pending, (state) => {
-            state.status = 'loading';
-          })
-          .addCase(createProjectAsync.fulfilled, (state, action) => {
-            state.status = 'idle';
-            state += action.payload;
-          });
-      },
+            .addCase(createProjectAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(createProjectAsync.fulfilled, (state, action) => {
+                state.status = 'idle';
+                state.projects = action.payload;
+            });
+    },
 })
 
-export const { create } = slice.actions
+export const { getProjects } = slice.actions
 export default slice.reducer;

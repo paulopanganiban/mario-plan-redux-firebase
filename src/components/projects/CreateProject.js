@@ -7,7 +7,8 @@ import { create, createProjectAsync } from '../../features/project/projectSlice'
 const CreateProject = () => {
     const dispatch = useDispatch()
     // get state
-    const projects = useSelector(state => state.projects)
+    const authState = useSelector(state => state.auth)
+    const projectState = useSelector(state => state.projects)
     const [project, setProject] = useState({
         title: '',
         content: '',
@@ -18,7 +19,7 @@ const CreateProject = () => {
     }
     function handleSubmit(event) {
         event.preventDefault()
-        dispatch(createProjectAsync(project))
+        dispatch(createProjectAsync({project, authState}))
         console.log(project)
     }
     return (
@@ -34,10 +35,14 @@ const CreateProject = () => {
                     <label htmlFor="content">Content</label>
                     <textarea name="content" value={project.content} className="materialize-textarea" onChange={handleChange}></textarea>
                 </div>
-                <button className="btn pink-ligthen-1 z-depth-0">Login</button>
+                <button disabled={projectState.status !== 'idle'}className="btn pink-ligthen-1 z-depth-0">
+                    {projectState.status}
+                </button>
             </form>
         </div >
     )
 }
 
 export default CreateProject
+
+

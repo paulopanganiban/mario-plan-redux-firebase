@@ -4,6 +4,13 @@ import { auth, provider } from '../../firebase'
 import { selectUserEmail, selectUserName, setActiveUser, setUserLogout } from '../../features/auth/authSlice'
 
 const SignIn = () => {
+    auth.onAuthStateChanged((user)=> {
+        if (user) {
+
+        } else {
+            console.log('No user is signed in')
+        }
+    })
     const dispatch = useDispatch()
     // select a reducer
    
@@ -21,6 +28,7 @@ const SignIn = () => {
             dispatch(setActiveUser({
                 userName: result.user.displayName,
                 userEmail: result.user.email,
+                userId: result.user.uid
             }))
         })
     }

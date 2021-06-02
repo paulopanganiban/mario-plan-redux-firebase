@@ -10,13 +10,13 @@ const Navbar = () => {
         <nav className="nav-wrapper grey darken-3">
             <div className="container">
                 <Link to='/' className="brand-logo">Mario Plan</Link>
-                {!userName ? (
-                    <SignedOutLinks />
+                {/* {!userName ? (
+                   
                 ) : (
-                    <SignedInLinks />
-                )}
-
-
+                 
+                )} */}
+                <SignedOutLinks />
+                <SignedInLinks />
             </div>
         </nav>
     )
