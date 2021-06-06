@@ -1,0 +1,3 @@
+gagawa tayo variable ng query
+protect using redirect
+tas yun papasa natin sa dispatch. para ma update yung state ng auth properties

@@ -12,6 +12,8 @@ import CreateProject from './components/projects/CreateProject';
 import Todo from './features/todo/Todo';
 import 'moment-timezone'
 import 'react-toastify/dist/ReactToastify.css'
+import Messenger from './components/messenger/Messenger';
+import SignUpWeb from './components/webdevsimplified_auth/SignUpWeb';
 
 
 function App() {
@@ -20,7 +22,6 @@ function App() {
     <div className="App">
       <Router>
         <Navbar />
-        {/* <Todo/> */}
         <Switch>
           <Route exact path='/'>
             <Dashboard />
@@ -29,7 +30,7 @@ function App() {
             <SignIn />
           </Route>
           <Route path='/signup'>
-            <SignUp />
+            <SignUpWeb />
           </Route>
           <Route path='/create'>
             <CreateProject />

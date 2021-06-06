@@ -8,7 +8,7 @@ const SignUp = () => {
         firstName: '',
         lastName: '',
     })
-    auth().createUserWithEmailAndPassword(signUp.email, signUp.password)
+    auth.createUserWithEmailAndPassword(signUp.email, signUp.password)
         .then((userCredential) => {
             // Signed in 
             var user = userCredential.user;

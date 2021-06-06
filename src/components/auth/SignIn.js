@@ -17,15 +17,13 @@ const SignIn = () => {
     function handleSignInWithEmailPassword() {
         console.log(signIn)
         dispatch(signInUserAsync({ signIn }))
-        if(authState.error === true) {
-            toast.configure()
-            toast.warn('Sign in failed. Wrong credentials')
-        }
+   
     }
     function handleSignIn() {
         auth.signInWithPopup(provider).catch((error => {
             alert(error.message)
         })).then((result) => {
+            console.log(result)
             dispatch(setActiveUser({
                 userName: result.user.displayName,
                 userEmail: result.user.email,
@@ -44,16 +42,6 @@ const SignIn = () => {
     function handleSubmit(event) {
         event.preventDefault()
         handleSignInWithEmailPassword()
-        // auth.signInWithEmailAndPassword(signIn.userName, signIn.password)
-        // .then((userCredential) => {
-        //   // Signed in
-        //   var user = userCredential.user;
-        //   // ...
-        // })
-        // .catch((error) => {
-        //   var errorCode = error.code;
-        //   var errorMessage = error.message;
-        // });
     }
     return (
         <div className='container'>
